@@ -29,7 +29,8 @@ def parse_earthquake_data(file_path):
         numvals = int(SS > 0) + int(S1 > 0) 
         
         #Only add valid latitude/longitude entries
-        if -90 <= lat <= 90 and -180 <= lon <= 180:
+        #Remove rows where NumVals == 0
+        if -90 <= lat <= 90 and -180 <= lon <= 180 and numvals > 0:
             records.append((recnum, lat, lon, numvals, SS, S1))
     
     return pd.DataFrame(records, columns=["Record Number", "Latitude", "Longitude", "NumVals", "SS", "S1"])
